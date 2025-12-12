@@ -1,0 +1,1 @@
+<?php // Eliminación deshabilitada. Archivo placeholder para mantener consistencia. ?>

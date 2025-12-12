@@ -1,0 +1,88 @@
+<?php
+require_once __DIR__ . '/../connect.php';
+
+// Obtener el id del rol desde la URL
+$cod_rol = isset($_GET['cod_rol']) ? (int)$_GET['cod_rol'] : 0;
+
+$fila = null;
+if ($cod_rol > 0) {
+    $sql = "SELECT * FROM cod_rol WHERE cod_rol = $cod_rol";
+    $resultado = $conn->query($sql);
+    if ($resultado && $resultado->num_rows === 1) {
+        $fila = $resultado->fetch_assoc();
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Rol</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 500px; margin-top: 50px; }
+        .card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card-header { background-color: #0d6efd; color: white; border-radius: 15px 15px 0 0 !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Editar Rol</h3>
+        </div>
+        <div class="card-body">
+            <?php if ($fila): ?>
+            <form action="actualizar_rol.php" method="post" class="needs-validation" novalidate>
+                <input type="hidden" name="cod_rol" value="<?php echo $fila['cod_rol']; ?>">
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Nombre o Descripción:</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" value="<?php echo htmlspecialchars($fila['descripcion']); ?>" required maxlength="100">
+                    <div class="invalid-feedback">Ingrese la descripción del rol.</div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="listar_rol.php" class="btn btn-secondary me-md-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Actualizar Rol</button>
+                </div>
+            </form>
+            <?php else: ?>
+            <div class="alert alert-danger" role="alert">
+                No se encontró el rol.
+            </div>
+            <div class="text-center">
+                <a href="listar_rol.php" class="btn btn-secondary">Volver a la lista</a>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <a href="../index.php" class="text-decoration-none">Volver al índice</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+</body>
+</html>
+<?php $conn->close(); ?>
