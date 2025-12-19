@@ -19,43 +19,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar OTP y expiración
     if ($otp_ingresado == $temp_user['otp']) {
         if (strtotime($temp_user['expiracion']) > time()) {
-            // OTP válido y no expirado -> Insertar en BD
+            // OTP válido y no expirado
             
-            $sql = "INSERT INTO usuarios (cedula, nombre, apellido, correo, telefono, clave, rol_id, pregunta_1_id, respuesta_1, pregunta_2_id, respuesta_2, pregunta_3_id, respuesta_3, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'activo')";
-            
-            $stmt = $conn->prepare($sql);
-            if ($stmt) {
-                $stmt->bind_param("ssssssiisisss", 
-                    $temp_user['cedula'], 
-                    $temp_user['nombre'], 
-                    $temp_user['apellido'], 
-                    $temp_user['correo'], 
-                    $temp_user['telefono'], 
-                    $temp_user['clave'], 
-                    $temp_user['rol_id'], 
-                    $temp_user['pregunta1'], 
-                    $temp_user['respuesta1'], 
-                    $temp_user['pregunta2'], 
-                    $temp_user['respuesta2'], 
-                    $temp_user['pregunta3'], 
-                    $temp_user['respuesta3']
-                );
+            // Si viene desde login (usuario ya existe), solo activar
+            if (isset($temp_user['from_login']) && $temp_user['from_login'] === true) {
+                $update = $conn->prepare("UPDATE usuarios SET estado = 'activo' WHERE id = ?");
+                $update->bind_param("i", $temp_user['user_id']);
                 
-                if ($stmt->execute()) {
-                    // Limpiar sesión
+                if ($update->execute()) {
                     unset($_SESSION['temp_user']);
-                    
                     $mensaje = "¡Cuenta activada con éxito! Redirigiendo al login...";
                     $tipo_mensaje = "success";
                     header("refresh:2;url=login.php");
                 } else {
-                    $mensaje = "Error al guardar el usuario: " . $conn->error;
+                    $mensaje = "Error al activar la cuenta: " . $conn->error;
                     $tipo_mensaje = "danger";
                 }
-                $stmt->close();
             } else {
-                $mensaje = "Error en la base de datos: " . $conn->error;
-                $tipo_mensaje = "danger";
+                // Nuevo registro: Insertar en BD
+                $sql = "INSERT INTO usuarios (cedula, nombre, apellido, correo, telefono, clave, rol_id, pregunta_1_id, respuesta_1, pregunta_2_id, respuesta_2, pregunta_3_id, respuesta_3, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'activo')";
+                
+                $stmt = $conn->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param("ssssssiisisss", 
+                        $temp_user['cedula'], 
+                        $temp_user['nombre'], 
+                        $temp_user['apellido'], 
+                        $temp_user['correo'], 
+                        $temp_user['telefono'], 
+                        $temp_user['clave'], 
+                        $temp_user['rol_id'], 
+                        $temp_user['pregunta1'], 
+                        $temp_user['respuesta1'], 
+                        $temp_user['pregunta2'], 
+                        $temp_user['respuesta2'], 
+                        $temp_user['pregunta3'], 
+                        $temp_user['respuesta3']
+                    );
+                    
+                    if ($stmt->execute()) {
+                        unset($_SESSION['temp_user']);
+                        $mensaje = "¡Cuenta activada con éxito! Redirigiendo al login...";
+                        $tipo_mensaje = "success";
+                        header("refresh:2;url=login.php");
+                    } else {
+                        $mensaje = "Error al guardar el usuario: " . $conn->error;
+                        $tipo_mensaje = "danger";
+                    }
+                    $stmt->close();
+                } else {
+                    $mensaje = "Error en la base de datos: " . $conn->error;
+                    $tipo_mensaje = "danger";
+                }
             }
         } else {
             $mensaje = "El código OTP ha expirado. Por favor regístrese nuevamente.";

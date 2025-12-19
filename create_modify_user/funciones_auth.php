@@ -59,10 +59,10 @@ function validarTelefono($telefono) {
 
 function enviarWhatsApp($telefono, $mensaje) {
     // ---------------------------------------------------------
-    // DATOS DE ULTRAMSG (Sacados de tu captura)
+    // DATOS DE ULTRAMSG 
     // ---------------------------------------------------------
-    $instanceId = "instance155632"; // YA LO PUSE POR TI (según tu foto)
-    $token = "1xllvx9e9yey0myd"; // <--- ESTO LO COPIAS DE LA WEB AL ESCANEAR EL QR
+    $instanceId = "instance155632"; 
+    $token = "1xllvx9e9yey0myd"; 
 
     // ---------------------------------------------------------
     // LÓGICA DE ENVÍO

@@ -29,19 +29,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../index.php");
             exit();
         } elseif ($row['estado'] == 'pendiente_activacion') {
-            // Cuenta pendiente: Generar nuevo OTP y redirigir
+            // Cuenta pendiente: Generar nuevo OTP y guardar en sesión
             $otp = rand(100000, 999999);
             $expiracion = date("Y-m-d H:i:s", strtotime("+10 minutes"));
             
-            $update = $conn->prepare("UPDATE usuarios SET token_otp = ?, token_expiracion = ? WHERE id = ?");
-            $update->bind_param("si", $otp, $expiracion, $row['id']);
-            $update->execute();
+            // Guardar en sesión para activación
+            $_SESSION['temp_user'] = [
+                'cedula' => $row['cedula'],
+                'nombre' => $row['nombre'],
+                'apellido' => $row['apellido'],
+                'correo' => $row['correo'],
+                'telefono' => $row['telefono'],
+                'otp' => $otp,
+                'expiracion' => $expiracion,
+                'from_login' => true,
+                'user_id' => $row['id']
+            ];
             
             // Enviar WhatsApp
             $mensaje_wsp = "Tu nuevo codigo de activacion es: $otp";
             enviarWhatsApp($row['telefono'], $mensaje_wsp);
             
-            header("Location: activar_cuenta.php?cedula=" . $row['cedula']);
+            header("Location: activar_cuenta.php");
             exit();
         } else {
             $mensaje = "Su cuenta está desactivada. Contacte al administrador.";

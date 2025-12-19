@@ -272,9 +272,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php elseif ($step == 2): ?>
                             <!-- PASO 2: Selección de Método -->
                             <h5 class="text-center mb-4">Selecciona un método de recuperación</h5>
-                            <form method="POST">
-                                <div class="d-grid gap-3">
-                                    <button type="submit" name="seleccionar_metodo" value="whatsapp" class="btn btn-outline-success p-3 text-start">
+                            <div class="d-grid gap-3">
+                                <form method="POST">
+                                    <input type="hidden" name="metodo" value="whatsapp">
+                                    <button type="submit" name="seleccionar_metodo" class="btn btn-outline-success p-3 text-start w-100">
                                         <div class="d-flex align-items-center">
                                             <i class="bi bi-whatsapp fs-2 me-3"></i>
                                             <div>
@@ -282,10 +283,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <small class="text-muted">Recibirás un código de 6 dígitos</small>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="metodo" value="whatsapp">
                                     </button>
-                                    
-                                    <button type="submit" name="seleccionar_metodo" value="preguntas" class="btn btn-outline-primary p-3 text-start">
+                                </form>
+                                
+                                <form method="POST">
+                                    <input type="hidden" name="metodo" value="preguntas">
+                                    <button type="submit" name="seleccionar_metodo" class="btn btn-outline-primary p-3 text-start w-100">
                                         <div class="d-flex align-items-center">
                                             <i class="bi bi-question-circle fs-2 me-3"></i>
                                             <div>
@@ -293,10 +296,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <small class="text-muted">Responde las 3 preguntas que elegiste</small>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="metodo" value="preguntas">
                                     </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
 
                         <?php elseif ($step == 3): ?>
                             <!-- PASO 3: Verificación y Cambio de Clave -->
