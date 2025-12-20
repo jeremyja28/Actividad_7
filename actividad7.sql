@@ -456,10 +456,10 @@ COMMIT;
 CREATE TABLE IF NOT EXISTS configuracion (
   id int(11) NOT NULL AUTO_INCREMENT,
   clave varchar(50) NOT NULL,
-  alor varchar(255) NOT NULL,
+  valor varchar(255) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY clave (clave)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcado de datos para la tabla configuracion
-INSERT INTO configuracion (clave, alor) VALUES ('usar_whatsapp', '0') ON DUPLICATE KEY UPDATE valor=valor;
+INSERT INTO configuracion (clave, valor) VALUES ('usar_whatsapp', '0') ON DUPLICATE KEY UPDATE valor=valor;
