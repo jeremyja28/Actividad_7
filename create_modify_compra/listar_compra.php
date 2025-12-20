@@ -1,6 +1,6 @@
 <?php
 include("../connect.php");
-// Filtros
+// Filtrosss
 $f_producto = isset($_GET['producto_id']) ? (int)$_GET['producto_id'] : 0;
 $f_proveedor = isset($_GET['proveedor_id']) ? (int)$_GET['proveedor_id'] : 0;
 $f_variante = isset($_GET['variante_id']) ? (int)$_GET['variante_id'] : 0;
