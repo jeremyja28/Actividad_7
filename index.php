@@ -139,6 +139,7 @@ $count_roles = getCount($conn, 'cod_rol');
         .theme-indigo .icon-box { background-color: #eef2ff; color: #6366f1; }
         .theme-pink .icon-box { background-color: #fdf2f8; color: #ec4899; }
         .theme-teal .icon-box { background-color: #f0fdfa; color: #14b8a6; }
+        .theme-gray .icon-box { background-color: #f3f4f6; color: #4b5563; }
 
         .page-header {
             margin-bottom: 2rem;
@@ -280,6 +281,20 @@ $count_roles = getCount($conn, 'cod_rol');
                 </div>
                 <div class="icon-box">
                     <i class="bi bi-shield-lock"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Configuración -->
+        <div class="col-md-6 col-lg-3">
+            <a href="create_modify_config/configuracion.php" class="stat-card theme-gray">
+                <div class="content">
+                    <div class="card-label">Ajustes</div>
+                    <div class="card-value"><i class="bi bi-gear" style="font-size: 1.5rem;"></i></div>
+                    <div class="card-link">Configuración <i class="bi bi-arrow-right"></i></div>
+                </div>
+                <div class="icon-box">
+                    <i class="bi bi-sliders"></i>
                 </div>
             </a>
         </div>
