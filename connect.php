@@ -9,7 +9,7 @@ $servername = "localhost";
 $port = 3306;
 $username = "pucesa";         
 $password = "pucesa";              
-$database = "actividad7";       // Nombre de tu base de datos
+$database = "actividad8";       // Nombre de tu base de datos
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $database, $port);
