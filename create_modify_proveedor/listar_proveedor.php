@@ -1,4 +1,5 @@
 <?php
+require_once '../security.php';
 include("../connect.php");
 $sql = "SELECT * FROM proveedores ORDER BY id DESC";
 $res = $conn->query($sql);
@@ -116,18 +117,7 @@ $res = $conn->query($sql);
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="../index.php">
-            <i class="bi bi-grid-1x2-fill"></i> InventoryOS
-        </a>
-        <div class="d-flex align-items-center gap-3">
-            <a href="../index.php" class="btn btn-outline-secondary btn-sm border-0">
-                <i class="bi bi-arrow-left"></i> Volver
-            </a>
-        </div>
-    </div>
-</nav>
+<?php include '../navbar.php'; ?>
 
 <div class="container px-4">
     <div class="page-header">

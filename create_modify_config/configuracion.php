@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once '../security.php';
 require_once '../connect.php';
 
 $mensaje = "";
@@ -55,7 +55,6 @@ if ($result && $result->num_rows > 0) {
     <style>
         body {
             background-color: #f8f9fa;
-            padding-top: 50px;
         }
         .card {
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -63,6 +62,7 @@ if ($result && $result->num_rows > 0) {
     </style>
 </head>
 <body>
+    <?php include '../navbar.php'; ?>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -104,7 +104,7 @@ if ($result && $result->num_rows > 0) {
                                 <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-save"></i> Guardar Cambios
                                 </button>
-                                <a href="../index.php" class="btn btn-secondary">
+                                <a href="../principal.php" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left"></i> Volver al Inicio
                                 </a>
                             </div>

@@ -1,4 +1,6 @@
-<?php include("../connect.php"); ?>
+<?php
+require_once '../security.php';
+include("../connect.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +16,7 @@
     </style>
 </head>
 <body>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
     <div class="card">
@@ -71,7 +74,7 @@
         </div>
     </div>
     <div class="text-center mt-3">
-        <a href="../index.php" class="text-decoration-none">Volver al índice</a>
+        <a href="../principal.php" class="text-decoration-none">Volver al índice</a>
     </div>
 </div>
 

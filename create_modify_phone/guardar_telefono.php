@@ -1,4 +1,5 @@
 <?php
+require_once '../security.php';
 include("../connect.php");
 
 $nombre = $_POST['nombre'] ?? '';
@@ -34,6 +35,7 @@ if ($nombre === '' || $marca_id === 0) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+<?php include '../navbar.php'; ?>
     <div class="card shadow p-4 text-center" style="max-width: 500px; width: 100%;">
         <div class="card-body">
             <?php if ($success): ?>
@@ -43,7 +45,7 @@ if ($nombre === '' || $marca_id === 0) {
                 <div class="d-grid gap-2">
                     <a href="agregar_telefono.php" class="btn btn-primary">Agregar otro</a>
                     <a href="listar_telefono.php" class="btn btn-outline-primary">Ver Lista</a>
-                    <a href="../index.php" class="btn btn-outline-secondary">Ir al Inicio</a>
+                    <a href="../principal.php" class="btn btn-outline-secondary">Ir al Inicio</a>
                 </div>
             <?php else: ?>
                 <h1 class="display-1 text-danger mb-3"><i class="bi bi-x-circle"></i></h1>

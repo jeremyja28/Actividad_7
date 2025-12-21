@@ -1,4 +1,5 @@
 <?php
+require_once '../security.php';
 include '../connect.php';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -43,6 +44,7 @@ if ($id > 0) {
     </style>
 </head>
 <body>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
     <div class="card mx-auto" style="max-width: 600px;">
