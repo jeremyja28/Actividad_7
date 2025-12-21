@@ -25,8 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['nombre'] = $row['nombre'] . " " . $row['apellido'];
             $_SESSION['correo'] = $row['correo'];
+            $_SESSION['last_activity'] = time(); // Inicializar tiempo de actividad
             
-            header("Location: ../index.php");
+            header("Location: ../principal.php");
             exit();
         } elseif ($row['estado'] == 'pendiente_activacion') {
             // Cuenta pendiente: Generar nuevo OTP y guardar en sesión

@@ -1,4 +1,6 @@
-<?php include("../connect.php"); ?>
+<?php
+require_once '../security.php';
+include("../connect.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +16,7 @@
     </style>
 </head>
 <body>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
     <div class="card">

@@ -1,4 +1,5 @@
 <?php
+require_once '../security.php';
 include("../connect.php");
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $v = null;
@@ -22,6 +23,7 @@ if ($id>0){
     </style>
 </head>
 <body>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
     <div class="card">
@@ -86,7 +88,7 @@ if ($id>0){
         </div>
     </div>
     <div class="text-center mt-3">
-        <a href="../index.php" class="text-decoration-none">Volver al índice</a>
+        <a href="../principal.php" class="text-decoration-none">Volver al índice</a>
     </div>
 </div>
 

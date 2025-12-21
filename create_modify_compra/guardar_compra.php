@@ -1,4 +1,5 @@
 <?php
+require_once '../security.php';
 require_once __DIR__ . '/../connect.php';
 
 $variante_id = (int)($_POST['variante_id'] ?? 0);
@@ -41,6 +42,7 @@ if ($variante_id <= 0 || $proveedor_id <= 0 || $precio_unitario === '' || $canti
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+<?php include '../navbar.php'; ?>
     <div class="card shadow p-4 text-center" style="max-width: 500px; width: 100%;">
         <div class="card-body">
             <?php if ($success): ?>
@@ -50,7 +52,7 @@ if ($variante_id <= 0 || $proveedor_id <= 0 || $precio_unitario === '' || $canti
                 <div class="d-grid gap-2">
                     <a href="agregar_compra.php" class="btn btn-primary">Registrar otra</a>
                     <a href="listar_compra.php" class="btn btn-outline-primary">Ver Compras</a>
-                    <a href="../index.php" class="btn btn-outline-secondary">Ir al Inicio</a>
+                    <a href="../principal.php" class="btn btn-outline-secondary">Ir al Inicio</a>
                 </div>
             <?php else: ?>
                 <h1 class="display-1 text-danger mb-3"><i class="bi bi-x-circle"></i></h1>

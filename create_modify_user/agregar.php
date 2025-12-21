@@ -1,4 +1,5 @@
 <?php 
+require_once '../security.php';
 require_once __DIR__ . '/../connect.php'; 
 
 // Obtener roles
@@ -25,6 +26,7 @@ if ($res) {
     </style>
 </head>
 <body>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
     <div class="card">
