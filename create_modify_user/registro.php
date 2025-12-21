@@ -56,35 +56,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $resp2_md5 = md5(mb_strtolower(trim($respuesta2), 'UTF-8'));
             $resp3_md5 = md5(mb_strtolower(trim($respuesta3), 'UTF-8'));
             
-            // OTP
-            $otp = rand(100000, 999999);
-            $expiracion = date("Y-m-d H:i:s", strtotime("+10 minutes"));
-            
-            // Guardar datos en sesión temporalmente
-            $_SESSION['temp_user'] = [
-                'cedula' => $cedula,
-                'nombre' => $nombre,
-                'apellido' => $apellido,
-                'correo' => $correo,
-                'telefono' => $telefono,
-                'clave' => $clave_md5,
-                'rol_id' => $rol_id,
-                'pregunta1' => $pregunta1,
-                'respuesta1' => $resp1_md5,
-                'pregunta2' => $pregunta2,
-                'respuesta2' => $resp2_md5,
-                'pregunta3' => $pregunta3,
-                'respuesta3' => $resp3_md5,
-                'otp' => $otp,
-                'expiracion' => $expiracion
-            ];
+            // Verificar configuración de WhatsApp
+            $sql_conf = "SELECT valor FROM configuracion WHERE clave = 'usar_whatsapp'";
+            $res_conf = $conn->query($sql_conf);
+            $usar_whatsapp = '0'; // Default off if not found
+            if ($res_conf && $res_conf->num_rows > 0) {
+                $row_conf = $res_conf->fetch_assoc();
+                $usar_whatsapp = $row_conf['valor'];
+            }
 
-            // Enviar WhatsApp
-            $mensaje_wsp = "Tu codigo de activacion es: $otp";
-            enviarWhatsApp($telefono, $mensaje_wsp);
-            
-            header("Location: activar_cuenta.php");
-            exit();
+            if ($usar_whatsapp === '1') {
+                // OTP
+                $otp = rand(100000, 999999);
+                $expiracion = date("Y-m-d H:i:s", strtotime("+10 minutes"));
+                
+                // Guardar datos en sesión temporalmente
+                $_SESSION['temp_user'] = [
+                    'cedula' => $cedula,
+                    'nombre' => $nombre,
+                    'apellido' => $apellido,
+                    'correo' => $correo,
+                    'telefono' => $telefono,
+                    'clave' => $clave_md5,
+                    'rol_id' => $rol_id,
+                    'pregunta1' => $pregunta1,
+                    'respuesta1' => $resp1_md5,
+                    'pregunta2' => $pregunta2,
+                    'respuesta2' => $resp2_md5,
+                    'pregunta3' => $pregunta3,
+                    'respuesta3' => $resp3_md5,
+                    'otp' => $otp,
+                    'expiracion' => $expiracion
+                ];
+
+                // Enviar WhatsApp
+                $mensaje_wsp = "Tu codigo de activacion es: $otp";
+                enviarWhatsApp($telefono, $mensaje_wsp);
+                
+                header("Location: activar_cuenta.php");
+                exit();
+            } else {
+                // Registro directo (usar_whatsapp = 0)
+                $sql_insert = "INSERT INTO usuarios (cedula, nombre, apellido, correo, telefono, clave, rol_id, pregunta_1_id, respuesta_1, pregunta_2_id, respuesta_2, pregunta_3_id, respuesta_3, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'activo')";
+                
+                $stmt_insert = $conn->prepare($sql_insert);
+                if ($stmt_insert) {
+                    $stmt_insert->bind_param("ssssssiisisss", 
+                        $cedula, 
+                        $nombre, 
+                        $apellido, 
+                        $correo, 
+                        $telefono, 
+                        $clave_md5,
+                        $rol_id, 
+                        $pregunta1, 
+                        $resp1_md5, 
+                        $pregunta2, 
+                        $resp2_md5, 
+                        $pregunta3, 
+                        $resp3_md5
+                    );
+                    
+                    if ($stmt_insert->execute()) {
+                        $mensaje = "¡Registro exitoso! Redirigiendo al login...";
+                        $tipo_mensaje = "success";
+                        header("refresh:2;url=login.php");
+                    } else {
+                        $mensaje = "Error al guardar el usuario: " . $conn->error;
+                        $tipo_mensaje = "danger";
+                    }
+                    $stmt_insert->close();
+                } else {
+                    $mensaje = "Error en la base de datos: " . $conn->error;
+                    $tipo_mensaje = "danger";
+                }
+            }
         }
     }
 }

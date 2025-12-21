@@ -8,8 +8,11 @@ if (!isset($_SESSION['user_id'])) {
 require_once 'connect.php';
 
 // Helper function to get count
-function getCount($conn, $table) {
+function getCount($conn, $table, $condition = null) {
     $sql = "SELECT COUNT(*) as total FROM $table";
+    if ($condition) {
+        $sql .= " WHERE $condition";
+    }
     $res = $conn->query($sql);
     if ($res && $row = $res->fetch_assoc()) {
         return $row['total'];
@@ -22,7 +25,7 @@ $count_marcas = getCount($conn, 'marcas');
 $count_variantes = getCount($conn, 'variantes');
 $count_proveedores = getCount($conn, 'proveedores');
 $count_compras = getCount($conn, 'compras');
-$count_usuarios = getCount($conn, 'usuarios');
+$count_usuarios = getCount($conn, 'usuarios', "estado = 'activo'");
 $count_roles = getCount($conn, 'cod_rol');
 
 ?>
@@ -139,6 +142,7 @@ $count_roles = getCount($conn, 'cod_rol');
         .theme-indigo .icon-box { background-color: #eef2ff; color: #6366f1; }
         .theme-pink .icon-box { background-color: #fdf2f8; color: #ec4899; }
         .theme-teal .icon-box { background-color: #f0fdfa; color: #14b8a6; }
+        .theme-gray .icon-box { background-color: #f3f4f6; color: #4b5563; }
 
         .page-header {
             margin-bottom: 2rem;
@@ -204,7 +208,7 @@ $count_roles = getCount($conn, 'cod_rol');
         <div class="col-md-6 col-lg-3">
             <a href="create_modify_proveedor/listar_proveedor.php" class="stat-card theme-orange">
                 <div class="content">
-                    <div class="card-label">Socios Comerciales</div>
+                    <div class="card-label">Proveedores</div>
                     <div class="card-value"><?php echo $count_proveedores; ?></div>
                     <div class="card-link">Ver Proveedores <i class="bi bi-arrow-right"></i></div>
                 </div>
@@ -218,7 +222,7 @@ $count_roles = getCount($conn, 'cod_rol');
         <div class="col-md-6 col-lg-3">
             <a href="create_modify_phone/listar_telefono.php" class="stat-card theme-purple">
                 <div class="content">
-                    <div class="card-label">Catálogo</div>
+                    <div class="card-label">Productos Totales</div>
                     <div class="card-value"><?php echo $count_productos; ?></div>
                     <div class="card-link">Ver Teléfonos <i class="bi bi-arrow-right"></i></div>
                 </div>
@@ -260,7 +264,7 @@ $count_roles = getCount($conn, 'cod_rol');
         <div class="col-md-6 col-lg-3">
             <a href="create_modify_user/listar.php" class="stat-card theme-pink">
                 <div class="content">
-                    <div class="card-label">Acceso</div>
+                    <div class="card-label">Usuarios Activos</div>
                     <div class="card-value"><?php echo $count_usuarios; ?></div>
                     <div class="card-link">Gestionar Usuarios <i class="bi bi-arrow-right"></i></div>
                 </div>
@@ -280,6 +284,20 @@ $count_roles = getCount($conn, 'cod_rol');
                 </div>
                 <div class="icon-box">
                     <i class="bi bi-shield-lock"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Configuración -->
+        <div class="col-md-6 col-lg-3">
+            <a href="create_modify_config/configuracion.php" class="stat-card theme-gray">
+                <div class="content">
+                    <div class="card-label">Ajustes</div>
+                    <div class="card-value"><i class="bi bi-gear" style="font-size: 1.5rem;"></i></div>
+                    <div class="card-link">Configuración <i class="bi bi-arrow-right"></i></div>
+                </div>
+                <div class="icon-box">
+                    <i class="bi bi-sliders"></i>
                 </div>
             </a>
         </div>
