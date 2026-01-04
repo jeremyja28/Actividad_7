@@ -56,7 +56,7 @@ ALTER TABLE `clientes`
   ADD UNIQUE KEY `cedula` (`cedula`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT for dumped tabless
 --
 
 --
