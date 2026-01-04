@@ -86,21 +86,16 @@ if ($result && $result->num_rows > 0) {
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Uso de API de WhatsApp para Registro</label>
                                 <div class="card p-3 bg-light">
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="radio" name="usar_whatsapp" id="whatsapp_on" value="1" <?php echo ($config_actual === '1') ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="whatsapp_on">
-                                            <i class="bi bi-whatsapp text-success"></i> Activado (Enviar OTP por WhatsApp)
+                                    <div class="form-check form-switch">
+                                        <input type="hidden" name="usar_whatsapp" value="0">
+                                        <input class="form-check-input" type="checkbox" role="switch" name="usar_whatsapp" id="whatsapp_toggle" value="1" <?php echo ($config_actual === '1') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="whatsapp_toggle">
+                                            <?php echo ($config_actual === '1') ? '<i class="bi bi-whatsapp text-success"></i> Activado' : '<i class="bi bi-slash-circle text-muted"></i> Desactivado'; ?>
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="usar_whatsapp" id="whatsapp_off" value="0" <?php echo ($config_actual === '0') ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="whatsapp_off">
-                                            <i class="bi bi-slash-circle text-danger"></i> Desactivado (Registro directo)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-text text-muted">
-                                    Si está desactivado, los usuarios se registrarán directamente sin verificación por WhatsApp.
+                                    <small class="text-muted d-block mt-2">
+                                        Si está activado, el sistema enviará códigos OTP por WhatsApp al registrar usuarios.
+                                    </small>
                                 </div>
                             </div>
 

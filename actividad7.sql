@@ -514,6 +514,54 @@ ALTER TABLE `variantes`
   ADD CONSTRAINT `fk_variantes_color` FOREIGN KEY (`color_id`) REFERENCES `valores_atributo` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_variantes_modelo` FOREIGN KEY (`modelo_id`) REFERENCES `valores_atributo` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_variantes_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON UPDATE CASCADE;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE IF NOT EXISTS `ventas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cliente_id` int NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
+  `impuesto_15` decimal(10,2) NOT NULL,
+  `descuento_tipo` enum('fijo','porcentaje') DEFAULT 'fijo',
+  `descuento_valor` decimal(10,2) DEFAULT '0.00',
+  `total` decimal(10,2) NOT NULL,
+  `codigo_cupon` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_ventas_cliente` (`cliente_id`),
+  KEY `idx_ventas_fecha` (`fecha`),
+  CONSTRAINT `fk_ventas_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_ventas`
+--
+
+CREATE TABLE IF NOT EXISTS `detalle_ventas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `venta_id` int NOT NULL,
+  `variante_id` int NOT NULL,
+  `cantidad` int NOT NULL,
+  `precio_unitario` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_detalle_venta` (`venta_id`),
+  KEY `idx_detalle_variante` (`variante_id`),
+  CONSTRAINT `fk_detalle_venta` FOREIGN KEY (`venta_id`) REFERENCES `ventas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_detalle_variante` FOREIGN KEY (`variante_id`) REFERENCES `variantes` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `configuracion`
+--
+
+INSERT IGNORE INTO `configuracion` (`clave`, `valor`) VALUES ('usar_api_whatsapp', '0');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

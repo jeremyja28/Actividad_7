@@ -23,6 +23,7 @@ $count_compras = getCount($conn, 'compras');
 $count_usuarios = getCount($conn, 'usuarios', "estado = 'activo'");
 $count_roles = getCount($conn, 'cod_rol');
 $count_clientes = getCount($conn, 'clientes');
+$count_ventas = getCount($conn, 'ventas');
 
 ?>
 <!DOCTYPE html>
@@ -138,6 +139,7 @@ $count_clientes = getCount($conn, 'clientes');
         .theme-indigo .icon-box { background-color: #eef2ff; color: #6366f1; }
         .theme-pink .icon-box { background-color: #fdf2f8; color: #ec4899; }
         .theme-teal .icon-box { background-color: #f0fdfa; color: #14b8a6; }
+        .theme-green .icon-box { background-color: #f0fdf4; color: #16a34a; }
         .theme-gray .icon-box { background-color: #f3f4f6; color: #4b5563; }
 
         .page-header {
@@ -279,6 +281,32 @@ $count_clientes = getCount($conn, 'clientes');
         </div>
 
         <!-- Configuración -->
+        <div class="col-md-6 col-lg-3">
+            <a href="create_modify_venta/nueva_venta.php" class="stat-card theme-green">
+                <div class="content">
+                    <div class="card-label">Punto de Venta</div>
+                    <div class="card-value"><?php echo $count_ventas; ?></div>
+                    <div class="card-link">Nueva Venta <i class="bi bi-arrow-right"></i></div>
+                </div>
+                <div class="icon-box">
+                    <i class="bi bi-cash-coin"></i>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a href="reportes/panel_reportes.php" class="stat-card theme-indigo">
+                <div class="content">
+                    <div class="card-label">Reportes</div>
+                    <div class="card-value"><i class="bi bi-bar-chart" style="font-size: 1.5rem;"></i></div>
+                    <div class="card-link">Ver Reportes <i class="bi bi-arrow-right"></i></div>
+                </div>
+                <div class="icon-box">
+                    <i class="bi bi-file-earmark-bar-graph"></i>
+                </div>
+            </a>
+        </div>
+
         <div class="col-md-6 col-lg-3">
             <a href="create_modify_config/configuracion.php" class="stat-card theme-gray">
                 <div class="content">
