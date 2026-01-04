@@ -5,6 +5,7 @@ include("../connect.php");
 $producto_id = (int)($_POST['producto_id'] ?? 0);
 $sku = $_POST['sku'] ?? '';
 $precio = $_POST['precio'] ?? '';
+$stock_minimo = (int)($_POST['stock_minimo'] ?? 5);
 $color_id = $_POST['color_id'] !== '' ? (int)$_POST['color_id'] : null;
 $capacidad_id = $_POST['capacidad_id'] !== '' ? (int)$_POST['capacidad_id'] : null;
 $modelo_id = $_POST['modelo_id'] !== '' ? (int)$_POST['modelo_id'] : null;
@@ -15,8 +16,8 @@ $message = "";
 if ($producto_id <= 0 || $sku === '' || $precio === '') {
     $message = "Datos incompletos.";
 } else {
-    $stmt = $conn->prepare("INSERT INTO variantes (producto_id, sku, precio, color_id, capacidad_id, modelo_id) VALUES (?,?,?,?,?,?)");
-    $stmt->bind_param('isdiii', $producto_id, $sku, $precio, $color_id, $capacidad_id, $modelo_id);
+    $stmt = $conn->prepare("INSERT INTO variantes (producto_id, sku, precio, stock_minimo, color_id, capacidad_id, modelo_id) VALUES (?,?,?,?,?,?,?)");
+    $stmt->bind_param('isdiiii', $producto_id, $sku, $precio, $stock_minimo, $color_id, $capacidad_id, $modelo_id);
     if ($stmt->execute()) {
         $success = true;
         $message = "Variante guardada correctamente.";

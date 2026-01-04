@@ -6,6 +6,7 @@ $id = (int)($_POST['id'] ?? 0);
 $producto_id = (int)($_POST['producto_id'] ?? 0);
 $sku = $_POST['sku'] ?? '';
 $precio = $_POST['precio'] ?? '';
+$stock_minimo = (int)($_POST['stock_minimo'] ?? 5);
 $color_id = $_POST['color_id'] !== '' ? (int)$_POST['color_id'] : null;
 $capacidad_id = $_POST['capacidad_id'] !== '' ? (int)$_POST['capacidad_id'] : null;
 $modelo_id = $_POST['modelo_id'] !== '' ? (int)$_POST['modelo_id'] : null;
@@ -16,8 +17,8 @@ $message = "";
 if ($id <= 0 || $producto_id <= 0 || $sku === '' || $precio === '') {
     $message = "Datos inválidos.";
 } else {
-    $stmt = $conn->prepare("UPDATE variantes SET producto_id=?, sku=?, precio=?, color_id=?, capacidad_id=?, modelo_id=? WHERE id=?");
-    $stmt->bind_param('isdiiii', $producto_id, $sku, $precio, $color_id, $capacidad_id, $modelo_id, $id);
+    $stmt = $conn->prepare("UPDATE variantes SET producto_id=?, sku=?, precio=?, stock_minimo=?, color_id=?, capacidad_id=?, modelo_id=? WHERE id=?");
+    $stmt->bind_param('isdiiii', $producto_id, $sku, $precio, $stock_minimo, $color_id, $capacidad_id, $modelo_id, $id);
     if ($stmt->execute()) {
         $success = true;
         $message = "Variante actualizada correctamente.";

@@ -72,8 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
+        :root {
+            --primary-color: #4f46e5;
+        }
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -90,19 +93,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding-bottom: 1rem;
         }
         .btn-primary {
-            background: #764ba2;
+            background-color: var(--primary-color);
             border: none;
             padding: 0.8rem;
             border-radius: 0.5rem;
             transition: all 0.3s;
         }
         .btn-primary:hover {
-            background: #667eea;
+            background-color: #4338ca;
             transform: translateY(-2px);
         }
         .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(118, 75, 162, 0.25);
-            border-color: #764ba2;
+            box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+            border-color: var(--primary-color);
         }
     </style>
 </head>
@@ -113,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card shadow-lg">
                     <div class="card-header text-center">
                         <div class="mb-3">
-                            <i class="bi bi-person-circle display-1 text-primary" style="color: #764ba2 !important;"></i>
+                            <i class="bi bi-person-circle display-1 text-primary" style="color: var(--primary-color) !important;"></i>
                         </div>
                         <h4 class="mb-0 fw-bold text-secondary">Bienvenido</h4>
                         <p class="text-muted small">Ingresa tus credenciales para continuar</p>
@@ -148,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         
                         <div class="mt-4 text-center border-top pt-3">
                             <p class="mb-1"><a href="recuperar.php" class="text-decoration-none text-secondary small"><i class="bi bi-key"></i> ¿Olvidaste tu contraseña?</a></p>
-                            <p class="mb-0"><a href="registro.php" class="text-decoration-none fw-bold" style="color: #764ba2;">Crear una cuenta nueva</a></p>
+                            <p class="mb-0"><a href="registro.php" class="text-decoration-none fw-bold" style="color: var(--primary-color);">Crear una cuenta nueva</a></p>
                         </div>
                     </div>
                 </div>

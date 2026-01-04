@@ -24,6 +24,16 @@ $count_usuarios = getCount($conn, 'usuarios', "estado = 'activo'");
 $count_roles = getCount($conn, 'cod_rol');
 $count_clientes = getCount($conn, 'clientes');
 
+// Contar alertas de stock
+$sql_alertas = "SELECT COUNT(*) as total FROM (
+    SELECT v.id, v.stock_minimo, 
+    COALESCE((SELECT SUM(cantidad) FROM compras WHERE variante_id = v.id), 0) as stock_actual
+    FROM variantes v
+    HAVING stock_actual <= stock_minimo
+) as alertas";
+$res_alertas = $conn->query($sql_alertas);
+$count_alertas = ($res_alertas && $row = $res_alertas->fetch_assoc()) ? $row['total'] : 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -138,6 +148,7 @@ $count_clientes = getCount($conn, 'clientes');
         .theme-indigo .icon-box { background-color: #eef2ff; color: #6366f1; }
         .theme-pink .icon-box { background-color: #fdf2f8; color: #ec4899; }
         .theme-teal .icon-box { background-color: #f0fdfa; color: #14b8a6; }
+        .theme-red .icon-box { background-color: #fef2f2; color: #ef4444; }
         .theme-gray .icon-box { background-color: #f3f4f6; color: #4b5563; }
 
         .page-header {

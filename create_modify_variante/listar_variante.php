@@ -1,8 +1,9 @@
 <?php
 require_once '../security.php';
 include("../connect.php");
-$sql = "SELECT v.id, v.sku, v.precio, p.nombre AS producto,
-        vc.valor AS color, vcap.valor AS capacidad, vmod.valor AS modelo
+$sql = "SELECT v.id, v.sku, v.precio, v.stock_minimo, p.nombre AS producto,
+        vc.valor AS color, vcap.valor AS capacidad, vmod.valor AS modelo,
+        COALESCE((SELECT SUM(cantidad) FROM compras WHERE variante_id = v.id), 0) as stock_actual
         FROM variantes v
         JOIN productos p ON p.id=v.producto_id
         LEFT JOIN valores_atributo vc ON vc.id=v.color_id
@@ -131,7 +132,8 @@ $res=$conn->query($sql);
                         <th>Producto</th>
                         <th>SKU</th>
                         <th>Atributos</th>
-                        <th class="text-end">Precio</th>
+                        <th class="text-end">Precio Venta</th>
+                        <th class="text-center">Stock Actual</th>
                         <th class="text-end">Acciones</th>
                     </tr>
                 </thead>
@@ -146,6 +148,16 @@ $res=$conn->query($sql);
                             <?php if($v['modelo']): ?><span class="badge-attr">Mod: <?php echo htmlspecialchars($v['modelo']); ?></span><?php endif; ?>
                         </td>
                         <td class="text-end fw-bold text-success">$<?php echo number_format($v['precio'], 2); ?></td>
+                        <td class="text-center">
+                            <?php 
+                            $stock = $v['stock_actual'];
+                            $min = $v['stock_minimo'];
+                            $badgeClass = ($stock <= $min) ? 'bg-danger' : 'bg-success';
+                            ?>
+                            <span class="badge <?php echo $badgeClass; ?> rounded-pill">
+                                <?php echo $stock; ?>
+                            </span>
+                        </td>
                         <td class="text-end">
                             <a href="editar_variante.php?id=<?php echo $v['id']; ?>" class="action-btn" title="Editar">
                                 <i class="bi bi-pencil-square fs-5"></i>
