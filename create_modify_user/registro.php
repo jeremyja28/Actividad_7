@@ -144,8 +144,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
+        :root {
+            --primary-color: #4f46e5;
+        }
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             min-height: 100vh;
             padding: 2rem 0;
         }
@@ -161,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 1rem 1rem 0 0 !important;
         }
         .section-title {
-            color: #764ba2;
+            color: var(--primary-color);
             font-weight: 600;
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 0.5rem;
@@ -181,8 +184,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
         .form-control:focus, .form-select:focus {
-            box-shadow: 0 0 0 0.25rem rgba(118, 75, 162, 0.25);
-            border-color: #764ba2;
+            box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+            border-color: var(--primary-color);
         }
         .input-group-text {
             background-color: #f8f9fa;
@@ -203,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-10 col-lg-8">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3 class="mb-0 fw-bold" style="color: #764ba2;">Crear Nueva Cuenta</h3>
+                        <h3 class="mb-0 fw-bold" style="color: var(--primary-color);">Crear Nueva Cuenta</h3>
                         <p class="text-muted mb-0">Completa el formulario para registrarte</p>
                     </div>
                     <div class="card-body p-4 p-md-5">
@@ -336,7 +339,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </form>
                         
                         <div class="mt-4 text-center">
-                            <p class="text-muted">¿Ya tienes una cuenta? <a href="login.php" class="fw-bold text-decoration-none" style="color: #764ba2;">Inicia Sesión aquí</a></p>
+                            <p class="text-muted">¿Ya tienes una cuenta? <a href="login.php" class="fw-bold text-decoration-none" style="color: var(--primary-color);">Inicia Sesión aquí</a></p>
                         </div>
                     </div>
                 </div>

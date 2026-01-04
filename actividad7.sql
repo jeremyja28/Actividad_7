@@ -298,6 +298,7 @@ CREATE TABLE `variantes` (
   `producto_id` int NOT NULL,
   `sku` varchar(100) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
+  `stock_minimo` int NOT NULL DEFAULT '5',
   `color_id` int DEFAULT NULL,
   `capacidad_id` int DEFAULT NULL,
   `modelo_id` int DEFAULT NULL

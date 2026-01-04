@@ -163,8 +163,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
+        :root {
+            --primary-color: #4f46e5;
+        }
         body {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -199,12 +202,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             position: relative;
         }
         .step.active {
-            background: #0dcaf0;
+            background: var(--primary-color);
             color: white;
-            box-shadow: 0 0 0 0.3rem rgba(13, 202, 240, 0.25);
+            box-shadow: 0 0 0 0.3rem rgba(79, 70, 229, 0.25);
         }
         .step.completed {
-            background: #198754;
+            background: #10b981;
             color: white;
         }
         .step::after {

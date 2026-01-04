@@ -36,7 +36,7 @@ if ($id > 0) {
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .card-header {
-            background: linear-gradient(45deg, #4e54c8, #8f94fb);
+            background-color: #4f46e5;
             color: white;
             border-radius: 15px 15px 0 0 !important;
             padding: 1.5rem;
