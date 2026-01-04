@@ -22,6 +22,7 @@ $count_proveedores = getCount($conn, 'proveedores');
 $count_compras = getCount($conn, 'compras');
 $count_usuarios = getCount($conn, 'usuarios', "estado = 'activo'");
 $count_roles = getCount($conn, 'cod_rol');
+$count_clientes = getCount($conn, 'clientes');
 
 ?>
 <!DOCTYPE html>
@@ -189,6 +190,20 @@ $count_roles = getCount($conn, 'cod_rol');
                 </div>
                 <div class="icon-box">
                     <i class="bi bi-truck"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Clientes -->
+        <div class="col-md-6 col-lg-3">
+            <a href="create_modify_cliente/listar_cliente.php" class="stat-card theme-teal">
+                <div class="content">
+                    <div class="card-label">Clientes</div>
+                    <div class="card-value"><?php echo $count_clientes; ?></div>
+                    <div class="card-link">Ver Clientes <i class="bi bi-arrow-right"></i></div>
+                </div>
+                <div class="icon-box">
+                    <i class="bi bi-people"></i>
                 </div>
             </a>
         </div>

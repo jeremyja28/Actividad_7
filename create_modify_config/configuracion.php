@@ -53,12 +53,16 @@ if ($result && $result->num_rows > 0) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        body {
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #4f46e5;
         }
-        .card {
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+        body { background-color: #f8f9fa; }
+        .navbar-brand { color: var(--primary-color) !important; }
+        .container { margin-top: 50px; }
+        .card { border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card-header { background-color: var(--primary-color); color: white; border-radius: 15px 15px 0 0 !important; }
+        .btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); }
+        .btn-primary:hover { background-color: #4338ca; border-color: #4338ca; }
     </style>
 </head>
 <body>
@@ -67,7 +71,7 @@ if ($result && $result->num_rows > 0) {
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header text-center">
                         <h4 class="mb-0"><i class="bi bi-gear-fill"></i> Configuración de WhatsApp</h4>
                     </div>
                     <div class="card-body">
